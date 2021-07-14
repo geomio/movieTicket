@@ -24,7 +24,7 @@ Ticket.prototype.calculatePrice = function () {
     } else if (this.userAge <= 49) {
         this.ticketPrice += 7
     };
-    if (this.evening === 2) {
+    if (this.evening === "2") {
         this.ticketPrice += 3;  
     };
     if (this.newRelease === 1) {
@@ -62,9 +62,9 @@ TicketBook.prototype.addTicket = function(ticket) {
   }
 
 function ticketLister(toDisplay) {
-    let ticketList = $("#tickets");
+    let ticketList = $("ul#tickets");
     let htmlForTicketInfo = "";
-    Object.keys(toDisplay.ticket).forEach(function(key) {
+    Object.keys(toDisplay.tickets).forEach(function(key) {
         const ticket = toDisplay.findTicket(key);
         htmlForTicketInfo += "<li id=" + ticket.id + ">" + ticket.movieName + " " + ticket.ticketTime + "</li>"; 
     });
@@ -74,7 +74,7 @@ function ticketLister(toDisplay) {
 let ticketBook = new TicketBook();
 
 
-function showTicket() {
+function showTicket(mainTicketId) {
     const mainTicket = ticketBook.findTicket(mainTicketId);
     $("#show-ticket").show();
     $(".movieNameInputArea").html(mainTicket.movieName);
@@ -82,7 +82,7 @@ function showTicket() {
     $(".price").html(mainTicket.ticketPrice);
     let buttons = $("#buttons");
     buttons.empty();
-    buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>")
+    buttons.append("<button class='deleteButton' id=" + mainTicketId.id + ">Delete</button>")
 };
 
 function attachTicketListeners() {
@@ -107,9 +107,10 @@ $(document).ready(function() {
         const inputAge = parseInt($('input#userAge').val());
         const inputTime = $('select#timeOfDay').val();
         let userTicket = new Ticket( inputMovie, inputAge, inputTime, testName, testTime)
-        ticketBook.addTicket(userTicket);
         userTicket.calculatePrice();
-        console.log("this to stop");
-        $("#userTicketList").show();  
+        ticketBook.addTicket(userTicket);
+        console.log(userTicket);
+        console.log(ticketBook);
+        console.log("this to stop");  
     });
   });
