@@ -111,6 +111,7 @@ $(document).ready(function() {
         ticketBook.addTicket(userTicket);
         console.log(userTicket);
         console.log(ticketBook);
-        console.log("this to stop");  
+        console.log("this to stop");
+        ticketLister(ticketBook);  
     });
   });
